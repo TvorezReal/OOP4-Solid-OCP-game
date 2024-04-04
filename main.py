@@ -40,24 +40,50 @@ class Weapon(ABC):
 
 class Sword(Weapon):
     def attack(self):
-        print("Боец наносит удар мечом.")
+        return "наносит удар мечом"
 
 class Bow(Weapon):
     def attack(self):
-        print("Боец наносит удар из лука.")
+        return "наносит удар из лука"
 
 
 class Fighter:
-    def __init__(self, weapon: Weapon):
-        self.weapon = weapon
+    def __init__(self):
+        self.weapon = None
 
     def changeWeapon(self, weapon):
         self.weapon = weapon
-        print(f"Боец выбирает {self.weapon.__class__.__name__}.")
-        self.weapon.attack()
+        print(f"Боец выбирает {self.weapon.__class__.__name__}")
+
+    def attack(self):
+        if self.weapon is not None:
+            return f"Боец {self.weapon.attack()}."
+        else:
+            return "Боец безоружен!"
+
 
 class Monster:
     pass
 
-f = Fighter(Sword())
-f.changeWeapon(Bow())
+# Реализация боя
+
+def main():
+    # Создание бойца и монстра
+    fighter = Fighter()
+    monster = Monster()
+
+    # Бой с использованием меча
+    fighter.changeWeapon(Sword())
+    print(fighter.attack()) # Боец наносит удар мечом.
+    print("Монстр побежден!")
+
+    print("") # Для разделения вывода
+
+    # Бой с использованием лука
+    fighter.changeWeapon(Bow())
+    print(fighter.attack()) # Боец наносит удар из лука.
+    print("Монстр побежден!")
+
+
+if __name__ == "__main__":
+    main()
